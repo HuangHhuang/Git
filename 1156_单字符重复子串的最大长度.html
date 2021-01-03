@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+    //暴力算法 超出时间限制
+    function maxRep(text){
+        var length = text.length;
+        var res = 1;
+        for(var i = 0; i < length; i++){
+            var j = 0, k = 0, a = 0, left_num = 1, right_num = 0;
+            for(j = i + 1; j < length ;j++){
+                if(text[i] == text[j]){   //判断字符是否相同
+                    left_num++;         //相同+1，再匹配下一个
+                }else{
+                    break;              //不同跳出循环，执行后面的操作
+                }
+            }
+
+            for(k = j + 1; k < length; k++){    //查找是否有相隔一个字符的相同重复字符串
+                if(text[k] == text[i]){
+                    right_num ++;
+                }else{
+                    break;
+                }
+            }
+
+            for(a = i - 1; a>=0 ; a--){     //查找重复子串左边有无出现子串字母
+                if(text[a] == text[i]){
+                    if(eval(res) < eval(left_num + right_num + 1)){
+                        res = left_num + right_num +1;
+                    } 
+                }
+            }
+
+            for(a = k + 1; a < length ; a++){ //查找重复子串右边有无出现子串字母
+                if(text[a] == text[i]){
+                    if(eval(res) < eval(left_num + right_num + 1)){
+                        res = left_num + right_num + 1;
+                    } 
+                }
+            }
+            if(eval(res) < eval(left_num + right_num)){
+                res = left_num + right_num;
+            } 
+        }
+        return res;
+    }
+
+    alert(maxRep("bbababaaaa"));
+</script>
+<body>
+    
+</body>
+</html>
